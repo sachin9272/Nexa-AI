@@ -36,6 +36,11 @@ Nexa is an enterprise-grade AI marketing platform built specifically for local b
 ## 📂 Project Structure
 
 ```
+├── client/               # Next.js Web Application & Operating Interface
+│   ├── src/
+│   │   ├── app/          # App Router pages and layouts
+│   │   └── components/   # UI components and business dashboard
+│
 ├── app/                  # Cross-platform Expo client (React Native & Web)
 │   ├── src/
 │   │   ├── app/          # Navigation and screens
@@ -66,7 +71,17 @@ Nexa is an enterprise-grade AI marketing platform built specifically for local b
 - MongoDB 7.0+
 - Redis 7.0+
 
-### 1. Backend Server Setup (`/server`)
+### 1. Web Application (`/client`)
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+- Accessible at: `http://localhost:3000`
+
+### 2. Backend Server Setup (`/server`)
 
 ```bash
 cd server
@@ -78,7 +93,7 @@ npm run start:dev
 
 - **Swagger OpenAPI Docs**: `http://localhost:3000/api/docs`
 
-### 2. Mobile / Web App Setup (`/app`)
+### 3. Mobile Client (`/app`)
 
 ```bash
 cd app
