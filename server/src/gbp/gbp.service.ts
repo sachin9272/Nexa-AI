@@ -87,8 +87,18 @@ export class GbpService {
     return `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
   }
 
-  async handleOAuthCallback(code: string): Promise<GbpConnectionDocument> {
-    const tenantId = this.tenantContext.getTenantId();
+  async handleOAuthCallback(code: string, state?: string): Promise<GbpConnectionDocument> {
+    let tenantId: Types.ObjectId;
+    try {
+      if (state && Types.ObjectId.isValid(state)) {
+        tenantId = new Types.ObjectId(state);
+      } else {
+        tenantId = this.tenantContext.getTenantId();
+      }
+    } catch {
+      const tenant = await this.tenantModel.findOne();
+      tenantId = (tenant?._id as Types.ObjectId) ?? new Types.ObjectId();
+    }
 
     // Exchange code for tokens
     const tokens = await this.exchangeCodeForTokens(code);
